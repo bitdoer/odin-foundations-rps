@@ -1,3 +1,35 @@
+const results_div = document.querySelector(".results");
+
+const buttonPress = document.addEventListener("click", playRound);
+
+let playerWins = 0;
+let computerWins = 0;
+
+function playRound(event) {
+    
+    let playerSelection;
+    switch (event.target.id) {
+        case "rock": case "paper": case "scissors":
+            playerSelection = event.target.id;
+            break;
+    }
+    let computerSelection = getComputerChoice();
+    let round = evaluateRound(playerSelection, computerSelection);
+    console.log(round);
+
+    switch (round) {
+        case "win":
+            playerWins++;
+            break;
+        case "lose":
+            computerWins++;
+            break;
+    }
+
+    // TODO: Update DOM
+    // TODO: Handle winning
+}
+
 function capitalize(str) {
     str = str ?? "";
     if (str.length === 0) {
@@ -9,58 +41,25 @@ function capitalize(str) {
 function getComputerChoice() {
     switch (Math.floor(Math.random() * 3)) {
         case 0:
-            return "Rock";
+            return "rock";
         case 1:
-            return "Paper";
+            return "paper";
         default:
-            return "Scissors";
+            return "scissors";
     }
 }
 
 function playRound(playerSelection, computerSelection) {
-    let playerLower = playerSelection.toLowerCase();
-    let computerLower = computerSelection.toLowerCase();
 
-    if (playerLower === computerLower) {
-        return "Tie! The round must be replayed.";
+    if (playerSelection === computerSelection) {
+        return "tie";
     } else if (
-        (playerLower === "rock" && computerLower === "paper")
-        || (playerLower === "paper" && computerLower === "scissors")
-        || (playerLower === "scissors" && computerLower === "rock")
+        (playerSelection === "rock" && computerSelection === "paper")
+        || (playerSelection === "paper" && computerSelection === "scissors")
+        || (playerSelection === "scissors" && computerSelection === "rock")
     ) {
-        return `You lose the round! ${capitalize(computerLower)} beats ${playerLower}!`;
+        return "lose";
     } else {
-        return `You win the round! ${capitalize(playerLower)} beats ${computerLower}!`;
+        return "win";
     }
-}
-
-function game() {
-    console.log("Rock Paper Scissors!");
-
-    let i = 0;
-    let wins = 0;
-    while (i < 5) {
-        console.log(`Round ${i + 1}`);
-        let playerSelection = prompt("Rock, paper, or scissors?");
-        let computerSelection = getComputerChoice();
-        let round = playRound(playerSelection, computerSelection);
-        console.log(round);
-
-        if (round.slice(0, 3) === "Tie") {
-            continue;
-        }
-
-        if (round.slice(4, 7) === "win") {
-            wins++;
-        }
-
-        i++;
-
-        if (wins >= 3 || i - wins >= 3) {
-            break;
-        }
-
-    }
-    
-    console.log(`You ${wins >= 3 ? "win" : "lose"} the game! Final score: ${wins} - ${i - wins}`);
 }
