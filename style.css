@@ -1,5 +1,7 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    flex-direction: column;
 }
 
 .buttons {
@@ -9,5 +11,20 @@ body {
 .buttons button {
     padding: 12px 24px;
     font-size: 24px;
+    font-weight: 400;
+}
+
+.score span {
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.computer-choice {
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.round {
+    font-size: 18px;
     font-weight: 400;
 }
